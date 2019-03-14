@@ -2,11 +2,12 @@ import java.io.FileInputStream
 import java.util
 import java.util.Properties
 
+import file.DownloadFile
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.hive.HiveContext
-
 import org.apache.commons.io.FilenameUtils
+import sparkconfig.SparkConfig
 
 object main {
 
@@ -17,7 +18,9 @@ object main {
 
     val sparkPropFile = "src/main/resources/sparkConfig.properties"
 
-    val conf = loadSparkProps(sparkPropFile)
+    val sparkConfigurator = new SparkConfig()
+
+    val conf = sparkConfigurator.loadSparkProps(sparkPropFile)
 
     val sc = new SparkContext(conf)
 
@@ -27,41 +30,25 @@ object main {
 
     val downloader = new DownloadFile()
 
+    val downloadURL = getUrl();
+
     val fileToDownload = getFile2Download()
 
     val pathTo = "src/main/resources/"
 
-    downloader.downloadFile(fileToDownload,"src/main/resources/" + fileToDownload)
+    downloader.downloadFile(downloadURL + fileToDownload,pathTo + fileToDownload)
 
+    downloader.decompressGZ(pathTo + fileToDownload,pathTo + fileToDownload.substring(0, fileToDownload.lastIndexOf('.')))
 
+    println("File gz cancellato: " + downloader.deleteFile(pathTo+fileToDownload))
 
   }
 
-  def loadSparkProps(propFile: String): SparkConf ={
-
-    val sparkConfigFile = propFile
-
-    val sparkProp = new Properties()
-    sparkProp.load(new FileInputStream(sparkConfigFile))
-
-    sparkProp.getProperty("")
-    val conf = new SparkConf()
-
-    val keys = sparkProp.keys()
-
-    while(keys.hasMoreElements){
-
-      val key = String.valueOf(keys.nextElement())
-
-      conf.set(key,sparkProp.getProperty(key))
-
-    }
-
-    conf
+  def getFile2Download() : String = {
+     return "2018-03-01-0.json.gz";
   }
-
-  def getFile2Download() = {
-      "2018-03-01-0.json.gz"
+  def getUrl(): String ={
+    return "http://data.githubarchive.org/";
   }
 
 }
