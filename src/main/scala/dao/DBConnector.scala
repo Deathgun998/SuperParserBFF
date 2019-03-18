@@ -1,14 +1,11 @@
 package dao
-
 import java.io.FileInputStream
-import java.sql.{Connection, DriverManager, ResultSet}
-import java.util.Properties;
+import java.sql.{Connection, DriverManager}
+import java.util.Properties
 
-class DBConnector {
-
-  def connect() : Connection = {
-
-    val dbConfigFile = "src/main/resources/postgre.properties"
+class DBConnector extends Connector {
+  override def connect(propFile: String): Connection = {
+    val dbConfigFile = propFile
     val dbProp = new Properties()
     dbProp.load(new FileInputStream(dbConfigFile))
     val sql_url = dbProp.getProperty("sql.url")
@@ -20,8 +17,5 @@ class DBConnector {
     val sql_connection: Connection = DriverManager.getConnection(sql_url, sql_user, sql_password)
 
     return sql_connection
-
   }
-
-
 }
