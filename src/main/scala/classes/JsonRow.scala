@@ -2,7 +2,7 @@ package classes
 
 case class JsonRow (
                            id: String,
-                           `type`: String,
+                           EventType: String,
                            actor: Actor,
                            repo: Repo,
                            payload: Payload,

@@ -1,27 +1,17 @@
-import java.io.FileInputStream
-import java.util
-import java.util.Properties
+package counters.rdd
 
 import classes.{Actor, JsonRow, Payload, Repo}
-import config.application.ApplicationConfig
-import file.DownloadFile
-import org.apache.log4j.{Level, Logger}
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.hive.HiveContext
-import org.apache.commons.io.FilenameUtils
 import config.spark.SparkConfig
-import counters.rdd.ActorCounter
+import org.apache.spark.SparkContext
+import org.junit.{Before, Test}
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.scalatest.junit.AssertionsForJUnit
 
-object main {
+//@RunWith(classOf[JUnit4])
+class ActorCountTest extends AssertionsForJUnit {
 
-  def main(args:Array[String]): Unit ={
-
-    val rootLogger = Logger.getRootLogger()
-    rootLogger.setLevel(Level.ERROR)
-
-
-    //SPARK CONGIGURATION
-
+  def init: SparkContext = {
     val sparkPropFile = "src/main/resources/sparkConfig.properties"
 
     val sparkConfigurator = new SparkConfig()
@@ -30,29 +20,13 @@ object main {
 
     val sc = new SparkContext(conf)
 
-    val hiveContext = new HiveContext(sc)
+    sc
+  }
 
-    import hiveContext.implicits._
+  @Test
+  def ActorCountTest: Unit ={
 
-    //DOWNLOAD FILE
-
-    /*val applicationConf = new ApplicationConfig()
-
-    val downloadURL = applicationConf.getFileUrl()
-
-    val fileToDownload = applicationConf.getFile2Download()
-
-    val pathTo = applicationConf.getFileUrl() "src/main/resources/"
-
-    val downloader = new DownloadFile()
-
-    downloader.downloadFile(downloadURL + fileToDownload,pathTo + fileToDownload)
-
-    downloader.decompressGZ(pathTo + fileToDownload,pathTo + fileToDownload.substring(0, fileToDownload.lastIndexOf('.')))
-
-    println("File gz cancellato: " + downloader.deleteFile(pathTo+fileToDownload))*/
-
-    //
+    val sc = init
 
     val counter = new ActorCounter
 
@@ -82,6 +56,7 @@ object main {
 
     result.foreach(println)
 
+    assert(result.count() == actorSeq.size)
   }
 
 }

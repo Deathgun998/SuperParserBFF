@@ -47,6 +47,14 @@
             <version>42.1.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest-junit -->
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest-junit_2.10</artifactId>
+            <version>3.0.0-SNAP13</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

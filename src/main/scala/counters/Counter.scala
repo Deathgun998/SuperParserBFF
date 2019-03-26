@@ -1,0 +1,7 @@
+package counters
+
+trait Counter {
+
+
+
+}

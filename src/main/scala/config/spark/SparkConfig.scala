@@ -1,4 +1,4 @@
-package sparkconfig
+package config.spark
 
 import java.io.FileInputStream
 import java.util.Properties
