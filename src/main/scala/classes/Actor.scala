@@ -1,6 +1,6 @@
 package classes
 
-case class Actor (
+case class Actor  (
                    id: Int,
                    login: String,
                    display_login: String,

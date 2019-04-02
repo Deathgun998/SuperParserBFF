@@ -1,11 +1,13 @@
 package classes
 
+import java.sql.Timestamp
+
 case class JsonRow (
-                           id: String,
-                           EventType: String,
-                           actor: Actor,
-                           repo: Repo,
-                           payload: Payload,
-                           public: Boolean,
-                           created_at: String
+                     id: String,
+                     eventType: String,
+                     actor: Actor,
+                     repo: Repo,
+                     payload: Payload,
+                     isPublic: Boolean,
+                     created_at: String
 )

@@ -4,6 +4,6 @@ import java.sql.Connection
 
 trait Connector {
 
-  def connect(propFile: String) : Connection
+  def connect() : Connection
 
 }
