@@ -55,4 +55,17 @@ object JSONMethodsBasic {
       new Commit("sha", authorSeq(4), "message12", true, "url")
     ))
   )
+
+  def commitSeq= Seq(
+    new Commit("sha", authorSeq(0),"message0",true,"url"),
+    new Commit("sha", authorSeq(0),"message1",true,"url"),
+    new Commit("sha", authorSeq(0),"message2",true,"url"),
+    new Commit("sha", authorSeq(0),"message3",true,"url"),
+    new Commit("sha", authorSeq(0),"message4",true,"url"),
+    new Commit("sha", authorSeq(0),"message5",true,"url"),
+    new Commit("sha", authorSeq(0),"message6",true,"url"),
+    new Commit("sha", authorSeq(0),"message7",true,"url"),
+    new Commit("sha", authorSeq(0),"message8",true,"url"),
+    new Commit("sha", authorSeq(0),"message9",true,"url")
+  )
 }

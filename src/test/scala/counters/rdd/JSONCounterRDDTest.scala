@@ -240,4 +240,87 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
 
 
   }
+
+  test("countCommit test") {
+
+    val counter = new JSONCounterRDD
+
+    val genericRepo = JSONMethodsBasic.genericRepo
+    val genericPayload = JSONMethodsBasic.genericPayload
+    val actorSeq = JSONMethodsBasic.actorSeq
+    val commitsSeq = JSONMethodsBasic.commitSeq
+
+    val rdd = sc.parallelize(Seq(
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt")
+    ))
+
+    val result = counter.countCommit(rdd, sc)
+
+    println("commits count: " + result)
+
+    val usedCommits = 6
+
+    assert(result == usedCommits)
+  }
+
+  test("countCommitPerActor test") {
+
+    val counter = new JSONCounterRDD
+
+    val genericRepo = JSONMethodsBasic.genericRepo
+    val genericPayload = JSONMethodsBasic.genericPayload
+    val actorSeq = JSONMethodsBasic.actorSeq
+    val commitsSeq = JSONMethodsBasic.commitSeq
+
+    val rdd = sc.parallelize(Seq(
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt"),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt")
+    ))
+
+    val result: RDD[(Actor, Int)] = counter.countCommitPerActor(rdd, sc)
+
+    result.foreach(println)
+
+    result.collect().forall(x=>
+      (x._1.id == actorSeq(0).id && x._2 == 6)
+        || (x._1.id == actorSeq(0).id && x._2 == 4)
+    )
+  }
+
+  test("countCommitPerActorAndType test"){
+    val counter = new JSONCounterRDD
+
+    val genericRepo = JSONMethodsBasic.genericRepo
+    val genericPayload = JSONMethodsBasic.genericPayload
+    val actorSeq = JSONMethodsBasic.actorSeq
+    val commitsSeq = JSONMethodsBasic.commitSeq
+    val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
+
+    val rdd = sc.parallelize(Seq(
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt"),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt"),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt")
+    ))
+
+    val result: RDD[((Actor, String), Int)] = counter.countCommitPerActorAndType(rdd, sc)
+
+    result.foreach(println)
+
+    result.collect().forall(x=>
+      (x._1._1.id == actorSeq(0).id && x._1._2.equals(eventTypeSeq(0))&& x._2 == 2)
+        || (x._1._1.id == actorSeq(0).id && x._1._2.equals(eventTypeSeq(1))&& x._2 == 1)
+        || (x._1._1.id == actorSeq(0).id && x._1._2.equals(eventTypeSeq(2))&& x._2 == 3)
+        || (x._1._1.id == actorSeq(1).id && x._1._2.equals(eventTypeSeq(0))&& x._2 == 2)
+        || (x._1._1.id == actorSeq(1).id && x._1._2.equals(eventTypeSeq(1))&& x._2 == 2)
+    )
+
+  }
+
 }
