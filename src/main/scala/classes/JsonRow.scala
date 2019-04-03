@@ -9,5 +9,6 @@ case class JsonRow (
                      repo: Repo,
                      payload: Payload,
                      isPublic: Boolean,
-                     created_at: String
+                     created_at: String,
+                     org: String
 )

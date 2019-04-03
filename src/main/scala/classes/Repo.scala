@@ -1,7 +1,7 @@
 package classes
 
 case class Repo (
-                  id: Int,
+                  id: BigInt,
                   name: String,
                   url: String
                 )

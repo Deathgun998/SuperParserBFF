@@ -10,7 +10,7 @@ import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.hive.HiveContext
 import config.spark.SparkConfig
-import counters.rdd.JSONFinderRDD
+import counters.rdd.{JSONFinderRDD, JSONMaxMinRDD}
 import dao.DBConnector
 
 object main {
@@ -23,7 +23,7 @@ object main {
 
     //SPARK CONGIGURATION
 
-    System.setProperty("hadoop.home.dir", "D:/programmi/hadoop-2.6.0")
+    System.setProperty("hadoop.home.dir", "C:/hadoop-2.6.0")
 
     val sparkPropFile = "src/main/resources/sparkConfig.properties"
 
@@ -39,7 +39,7 @@ object main {
 
     //DOWNLOAD FILE
 
-    val applicationConf = new ApplicationConfig()
+    /*val applicationConf = new ApplicationConfig("src/main/resources/application.properties")
 
     val downloadURL = applicationConf.getFileUrl()
 
@@ -53,34 +53,28 @@ object main {
 
     downloader.decompressGZ(pathTo + fileToDownload,pathTo + fileToDownload.substring(0, fileToDownload.lastIndexOf('.')))
 
-    println("File gz cancellato: " + downloader.deleteFile(pathTo+fileToDownload))
+    println("File gz cancellato: " + downloader.deleteFile(pathTo+fileToDownload))*/
 
-    val genericRepo = JSONMocks.genericRepo
-    val genericPayload = JSONMocks.genericPayload
 
-    val actorSeq = JSONMocks.actorSeq
 
-    val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt")
-    ))
 
     val connector = new DBConnector("src/main/resources/postgre.properties")
 
+    val rdd = Parser.parse("src/main/resources/2018-03-01-0.json").rdd
+
     val finderRDD = new JSONFinderRDD()
+
+    val maxMinRDD = new JSONMaxMinRDD()
+
+    val result: ((Actor, String), Int) = maxMinRDD.getMaxEventPerActorFromJSON(rdd)
+
+    println(result)
 
     val actorRDD = finderRDD.findActor(rdd)
 
+
+
     connector.saveOnDB(actorRDD.toDF(), "actor")
-
-
 
 
 

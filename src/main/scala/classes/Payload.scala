@@ -1,9 +1,9 @@
 package classes
 
 case class Payload (
-                     push_id: Int,
-                     size: Int,
-                     distinct_size: Int,
+                     push_id: BigInt,
+                     size: BigInt,
+                     distinct_size: BigInt,
                      ref: String,
                      head: String,
                      before: String,

@@ -18,33 +18,33 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val actorSeq = JSONMethodsBasic.actorSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt")
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt","")
     ))
 
     val result: RDD[(Actor, Int)] = counter.countEventPerActor(rdd)
@@ -74,33 +74,33 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt")
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload,true,"createdAt","")
     ))
 
     val result: RDD[((Actor, String), Int)] = counter.countEventPerTypeAndActor(rdd)
@@ -131,33 +131,33 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt")
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt","")
     ))
 
     val result: RDD[((Actor, String, Repo), Int)] = counter.countEventPerActorTypeAndRepo(rdd)
@@ -190,37 +190,37 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
 
     val rdd: RDD[(JsonRow, Int)] = sc.parallelize(Seq(
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),2),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),2),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),2),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),2),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),1),
-      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt"),1)
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),2),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),2),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),2),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),2),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(2),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(2),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(3),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(3),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(3),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(3),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(0),actorSeq(3),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(2),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo1,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),1),
+      (new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo2,genericPayload,true,"createdAt",""),1)
     ))
 
     val result: RDD[((Actor, String, Repo,Int), Int)] = counter.countEventPerActorTypeAndRepoAndHour(rdd)
@@ -251,9 +251,9 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val commitsSeq = JSONMethodsBasic.commitSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt")
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt","")
     ))
 
     val result = counter.countCommit(rdd, sc)
@@ -275,11 +275,11 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val commitsSeq = JSONMethodsBasic.commitSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt"),
-      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt")
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt",""),
+      new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt","")
     ))
 
     val result: RDD[(Actor, Int)] = counter.countCommitPerActor(rdd, sc)
@@ -302,11 +302,11 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
     val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt")
+      new JsonRow("1", eventTypeSeq(0),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(0),commitsSeq(1))),true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(2),commitsSeq(3))),true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(6))),true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt","")
     ))
 
     val result: RDD[((Actor, String), Int)] = counter.countCommitPerActorAndType(rdd, sc)

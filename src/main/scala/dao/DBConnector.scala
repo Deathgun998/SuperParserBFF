@@ -12,10 +12,10 @@ class DBConnector(propFile: String) extends Connector {
     val dbProp = new Properties()
     dbProp.load(new FileInputStream(dbConfigFile))
 
-    val sql_url = dbProp.getProperty("sql.url")
-    val sql_user = dbProp.getProperty("sql.user")
-    val sql_password = dbProp.getProperty("sql.password")
-    val driver_name = dbProp.getProperty("sql.driver.name")
+    val sql_url = dbProp.getProperty("url")
+    val sql_user = dbProp.getProperty("user")
+    val sql_password = dbProp.getProperty("password")
+    val driver_name = dbProp.getProperty("Driver")
 
     Class.forName(driver_name)
     val sql_connection: Connection = DriverManager.getConnection(sql_url, sql_user, sql_password)
@@ -28,13 +28,31 @@ class DBConnector(propFile: String) extends Connector {
     val dbProp = new Properties()
     dbProp.load(new FileInputStream(dbConfigFile))
 
-    val sql_url = dbProp.getProperty("sql.url")
-    val sql_user = dbProp.getProperty("sql.user")
-    val sql_password = dbProp.getProperty("sql.password")
-    val driver_name = dbProp.getProperty("sql.driver.name")
+    val sql_url = dbProp.getProperty("url")
+    val sql_user = dbProp.getProperty("user")
+    val sql_password = dbProp.getProperty("password")
+    val driver_name = dbProp.getProperty("Driver")
 
     Class.forName(driver_name)
 
-    df.write.mode(SaveMode.Append).jdbc(sql_url,table,dbProp)
+    /*val connectionProperties = new Properties()
+
+    connectionProperties.put("user", s"${sql_user}")
+    connectionProperties.put("password", s"${sql_password}")
+
+    df.write.mode(SaveMode.Overwrite).jdbc(sql_url,table,connectionProperties)
+
+    println("salvato")
+*/
+
+    val url: String = dbProp.getProperty("url")
+    val tableName: String = table
+    val user: String = dbProp.getProperty("user")
+    val password: String = dbProp.getProperty("password")
+    val properties = new Properties()
+    properties.setProperty("user", user)
+    properties.setProperty("password", password)
+    properties.put("driver", "org.postgresql.Driver")
+    df.write.mode(SaveMode.Overwrite).jdbc(url, tableName, properties)
   }
 }

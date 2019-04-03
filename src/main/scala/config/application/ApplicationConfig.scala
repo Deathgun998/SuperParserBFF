@@ -3,10 +3,9 @@ package config.application
 import java.io.FileInputStream
 import java.util.Properties
 
-class ApplicationConfig {
+class ApplicationConfig(configFile:String) {
 
   def loadAppConf():Properties={
-    val configFile = ""
 
     val props = new Properties()
 

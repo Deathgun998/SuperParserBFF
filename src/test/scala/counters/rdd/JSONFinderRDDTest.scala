@@ -28,15 +28,15 @@ class JSONFinderRDDTest extends FunSuite with SharedSparkContext{
     val actorSeq = JSONMethodsBasic.actorSeq
 
     val rdd = sc.parallelize(Seq(
-        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt"),
-        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt")
+        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(2),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(3),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload,true,"createdAt",""),
+        new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload,true,"createdAt","")
       ))
 
     val result = finder.findActor(rdd)
@@ -57,10 +57,10 @@ class JSONFinderRDDTest extends FunSuite with SharedSparkContext{
     val payloadSeq = JSONMethodsBasic.payloadSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(0),true,"createdAt"),
-      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(1),true,"createdAt"),
-      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(2),true,"createdAt"),
-      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(3),true,"createdAt")
+      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(0),true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(1),true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(2),true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,genericRepo,payloadSeq(3),true,"createdAt","")
     ))
 
     val result = finder.findAuthor(rdd, sc)
@@ -80,15 +80,15 @@ class JSONFinderRDDTest extends FunSuite with SharedSparkContext{
     val repoSeq = JSONMethodsBasic.repoSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(1),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(3),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(4),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(4),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(2),genericPayload,true,"createdAt"),
-      new JsonRow("1", "1",genericActor,repoSeq(5),genericPayload,true,"createdAt")
+      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(1),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(3),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(4),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(0),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(4),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(2),genericPayload,true,"createdAt",""),
+      new JsonRow("1", "1",genericActor,repoSeq(5),genericPayload,true,"createdAt","")
     ))
 
     val result = finder.findRepo(rdd)
@@ -108,15 +108,15 @@ class JSONFinderRDDTest extends FunSuite with SharedSparkContext{
     val eventTypeSeq = JSONMethodsBasic.eventTypeSeq
 
     val rdd = sc.parallelize(Seq(
-      new JsonRow("1", eventTypeSeq(0),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(3),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(2),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt"),
-      new JsonRow("1", eventTypeSeq(0),genericActor,genericRepo,genericPayload,true,"createdAt")
+      new JsonRow("1", eventTypeSeq(0),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(3),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(2),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(1),genericActor,genericRepo,genericPayload,true,"createdAt",""),
+      new JsonRow("1", eventTypeSeq(0),genericActor,genericRepo,genericPayload,true,"createdAt","")
     ))
 
     val result = finder.findEventType(rdd)
