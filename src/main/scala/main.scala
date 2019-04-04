@@ -13,6 +13,7 @@ import config.spark.SparkConfig
 import counters.rdd.{JSONFinderRDD, JSONMaxMinRDD}
 import dao.DBConnector
 import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.SparkSession
 
 object main {
 
@@ -32,12 +33,13 @@ object main {
 
     val conf = sparkConfigurator.loadSparkProps(sparkPropFile)
 
-    val sc = new SparkContext(conf)
+    implicit val spark = SparkSession.builder()
+      .appName("test")
+      .master("local")
+      .config(conf)
+      .getOrCreate()
 
-    val hiveContext = new HiveContext(sc)
-
-    import hiveContext.implicits._
-
+    import spark.implicits._
     //DOWNLOAD FILE
 
     val applicationConf = new ApplicationConfig("src/main/resources/application.properties")
@@ -66,7 +68,7 @@ object main {
 
     val actors: RDD[Actor] = finderRDD.findActor(rdd)
 
-    val authors = finderRDD.findAuthor(rdd, sc)
+    val authors = finderRDD.findAuthor(rdd, spark.sparkContext)
 
     val eventTypes = finderRDD.findEventType(rdd)
 
