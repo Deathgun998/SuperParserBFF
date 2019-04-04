@@ -12,6 +12,7 @@ import org.apache.spark.sql.hive.HiveContext
 import config.spark.SparkConfig
 import counters.rdd.{JSONFinderRDD, JSONMaxMinRDD}
 import dao.DBConnector
+import org.apache.spark.rdd.RDD
 
 object main {
 
@@ -39,24 +40,19 @@ object main {
 
     //DOWNLOAD FILE
 
-    /*val applicationConf = new ApplicationConfig("src/main/resources/application.properties")
+    val applicationConf = new ApplicationConfig("src/main/resources/application.properties")
 
     val downloadURL = applicationConf.getFileUrl()
 
     val fileToDownload = applicationConf.getFile2Download()
 
-    val pathTo = applicationConf.getFileUrl()// "src/main/resources/"
+    val pathTo = applicationConf.getFileDestination()// "src/main/resources/"
 
     val downloader = new DownloadFile()
 
     downloader.downloadFile(downloadURL + fileToDownload,pathTo + fileToDownload)
 
     downloader.decompressGZ(pathTo + fileToDownload,pathTo + fileToDownload.substring(0, fileToDownload.lastIndexOf('.')))
-
-    println("File gz cancellato: " + downloader.deleteFile(pathTo+fileToDownload))*/
-
-
-
 
     val connector = new DBConnector("src/main/resources/postgre.properties")
 
@@ -68,13 +64,19 @@ object main {
 
     val result: ((Actor, String), Int) = maxMinRDD.getMaxEventPerActorFromJSON(rdd)
 
-    println(result)
+    val actors: RDD[Actor] = finderRDD.findActor(rdd)
 
-    val actorRDD = finderRDD.findActor(rdd)
+    val authors = finderRDD.findAuthor(rdd, sc)
 
+    val eventTypes = finderRDD.findEventType(rdd)
 
+    val repos = finderRDD.findRepo(rdd)
 
-    connector.saveOnDB(actorRDD.toDF(), "actor")
+    connector.saveOnDB(actors.toDF(), "actor")
+    connector.saveOnDB(authors.toDF(), "author")
+    connector.saveOnDB(eventTypes.toDF(), "eventType")
+    connector.saveOnDB(repos.toDF(), "repo")
+
 
 
 
