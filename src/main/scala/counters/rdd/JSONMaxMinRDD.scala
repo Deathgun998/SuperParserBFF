@@ -9,32 +9,22 @@ class JSONMaxMinRDD {
 
   def counterRDD = new JSONCounterRDD()
 
-  def getMax[V: ClassTag](rdd: RDD[((V),Int)]): ((V),Int) ={
+  private def getMax[V: ClassTag](rdd: RDD[((V),Int)]): ((V),Int) ={
     rdd.reduce((x, y)=> if(x._2>=y._2)x else y)
   }
 
-  def getMin[V: ClassTag](rdd: RDD[((V),Int)]): ((V),Int) ={
+  private def getMin[V: ClassTag](rdd: RDD[((V),Int)]): ((V),Int) ={
     rdd.reduce((x, y)=> if(x._2<=y._2)x else y)
   }
 
   //Trovare il massimo/minimo numero di «event» per «actor»;
-  def getMaxEventPerActorFromJSON(rdd:RDD[JsonRow]): ((Actor, String), Int) ={
-    val trasformed: RDD[((Actor, String), Int)] = counterRDD.countEventPerTypeAndActor(rdd)
-    val max: ((Actor, String), Int) = getMax(trasformed)
-
-    max
-  }
+  //da countEventPerTypeAndActor
   def getMaxEventPerActor(rdd:RDD[((Actor, String), Int)] ): ((Actor, String), Int) ={
     val max: ((Actor, String), Int) = getMax(rdd)
 
     max
   }
-  def getMinEventPerActorFromJSON(rdd:RDD[JsonRow]): ((Actor, String), Int) ={
-    val trasformed: RDD[((Actor, String), Int)] = counterRDD.countEventPerTypeAndActor(rdd)
-    val min: ((Actor, String), Int) = getMin(trasformed)
-
-    min
-  }
+  //da countEventPerTypeAndActor
   def getMinEventPerActor(rdd: RDD[((Actor, String), Int)] ): ((Actor, String), Int) ={
     val min: ((Actor, String), Int) = getMin(rdd)
 

@@ -256,7 +256,7 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
       new JsonRow("1", "1",actorSeq(1),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(4),commitsSeq(5))),true,"createdAt","")
     ))
 
-    val result = counter.countCommit(rdd, sc)
+    val result = counter.countCommit(rdd)
 
     println("commits count: " + result)
 
@@ -282,7 +282,7 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
       new JsonRow("1", "1",actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt","")
     ))
 
-    val result: RDD[(Actor, Int)] = counter.countCommitPerActor(rdd, sc)
+    val result: RDD[(Actor, Int)] = counter.countCommitPerActor(rdd)
 
     result.foreach(println)
 
@@ -309,7 +309,7 @@ class JSONCounterRDDTest extends FunSuite with SharedSparkContext {
       new JsonRow("1", eventTypeSeq(2),actorSeq(0),genericRepo,genericPayload.copy(commits = Seq(commitsSeq(7),commitsSeq(8),commitsSeq(9))),true,"createdAt","")
     ))
 
-    val result: RDD[((Actor, String), Int)] = counter.countCommitPerActorAndType(rdd, sc)
+    val result: RDD[((Actor, String), Int)] = counter.countCommitPerActorAndType(rdd)
 
     result.foreach(println)
 

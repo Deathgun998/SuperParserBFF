@@ -52,20 +52,20 @@ class JSONCounterRDD {
   }
 
   //Contare il numero di «commit»;
-  def countCommit(rdd: RDD[(JsonRow)], sc: SparkContext):Long={
-    val result= rdd.map(x=>x.payload.commits.size).reduce(_+_)
+  def countCommit(rdd: RDD[(JsonRow)]):Long={
+    val result= rdd.filter(x=> x.payload.commits != null && !x.payload.commits.isEmpty ).map(x=>x.payload.commits.size).reduce(_+_)
     result
   }
 
   //Contare il numero di «commit» per ogni «actor»;
-  def countCommitPerActor(rdd: RDD[(JsonRow)], sc: SparkContext):RDD[(Actor,Int)]={
-    val trasformed = rdd.map(x=>(x.actor,x.payload.commits.size))
+  def countCommitPerActor(rdd: RDD[(JsonRow)]):RDD[(Actor,Int)]={
+    val trasformed = rdd.filter(x=> x.payload.commits != null && !x.payload.commits.isEmpty ).map(x=>(x.actor,x.payload.commits.size))
     trasformed.reduceByKey(_+_)
   }
 
   //Contare il numero di «commit», divisi per «type» e «actor»;
-  def countCommitPerActorAndType(rdd: RDD[(JsonRow)], sc: SparkContext):RDD[((Actor,String),Int)]={
-    val trasformed = rdd.map(x=>((x.actor,x.eventType),x.payload.commits.size))
+  def countCommitPerActorAndType(rdd: RDD[(JsonRow)]):RDD[((Actor,String),Int)]={
+    val trasformed = rdd.filter(x=> x.payload.commits != null && !x.payload.commits.isEmpty ).map(x=>((x.actor,x.eventType),x.payload.commits.size))
     trasformed.reduceByKey(_+_)
   }
 
@@ -73,8 +73,8 @@ class JSONCounterRDD {
 
 
   //Contare il numero di «commit», divisi per «type», «actor» e ora;
-  def countCommitPerActorAndTypeAndHour(rdd: RDD[(JsonRow,Int)], sc: SparkContext):RDD[((Actor,String,Int),Int)]={
-    val trasformed = rdd.map(x=>((x._1.actor,x._1.eventType,x._2),x._1.payload.commits.size))
+  def countCommitPerActorAndTypeAndHour(rdd: RDD[(JsonRow,Int)]):RDD[((Actor,String,Int),Int)]={
+    val trasformed = rdd.filter(x=> x._1.payload.commits != null && !x._1.payload.commits.isEmpty ).map(x=>((x._1.actor,x._1.eventType,x._2),x._1.payload.commits.size))
     trasformed.reduceByKey(_+_)
   }
 

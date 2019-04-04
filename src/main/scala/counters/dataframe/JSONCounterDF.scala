@@ -12,16 +12,12 @@ class JSONCounterDF (SQLContext: SQLContext) {
   import SQLContext.implicits._
   import org.apache.spark.sql.functions._
 
-  private def rddCount[V: ClassTag ](rdd: RDD[V]): Long={
-    rdd.count()
+  def countActor(actors: DataFrame): Long ={
+    actors.count()
   }
 
-  def countActor(rdd: RDD[Actor]): Long ={
-    rddCount(rdd)
-  }
-
-  def countRepo(rdd: RDD[Repo]): Long={
-    rddCount(rdd)
+  def countRepo(repos: DataFrame): Long={
+    repos.count()
   }
 
   //Contare il numero di «event» per ogni «actor»;
