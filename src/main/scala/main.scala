@@ -36,6 +36,8 @@ object main {
     import org.apache.spark.sql.functions._
     //DOWNLOAD FILE
 
+    println("Carico configurazione")
+
     val applicationConf = new ApplicationConfig("src/main/resources/application.properties")
 
     val downloadURL = applicationConf.getFileUrl()
@@ -48,11 +50,15 @@ object main {
 
     val downloader = new DownloadFile()
 
+    println("scarico file")
+
     downloader.downloadFile(downloadURL + fileToDownload,destination)
 
     downloader.decompressGZ(pathTo + fileToDownload,pathTo + fileToDownload.substring(0, fileToDownload.lastIndexOf('.')))
 
     val connector = new DBConnector("src/main/resources/postgre.properties")
+
+    println("parso il file scaricato")
 
     val rdd = Parser.parse(destination).rdd
 
@@ -67,6 +73,7 @@ object main {
     val maxMinRDD = new JSONMaxMinRDD()
 
 
+    println("eseguo metodi di find")
 
     //metodi di find
 
@@ -78,6 +85,8 @@ object main {
 
     val repos = finderRDD.findRepo(rdd)
 
+    println("persisto find")
+
     connector.saveOnDB(actors.toDF(), "actor")
     connector.saveOnDB(authors.toDF(), "author")
     connector.saveOnDB(eventTypes.toDF(), "eventType")
@@ -86,12 +95,13 @@ object main {
 
     //metodi di count
 
+    println("eseguo metodi di count")
 
     val reposCount = counter.countRepo(repos)
-    val reposCountDL = new CountDL("reposCount","",reposCount)
+    val reposCountDL = spark.sparkContext.parallelize(Seq (new CountDL("reposCount","",reposCount)))
 
     val commitCount = counter.countCommit(rdd)
-    val commitCountDL = new CountDL("commitCount","",commitCount)
+    val commitCountDL = spark.sparkContext.parallelize(Seq (new CountDL("commitCount","",commitCount)))
 
     val countCommitPerActor = counter.countCommitPerActor(rdd)
     val countCommitPerActorDL = countCommitPerActor.map(x=> new CountDL("countCommitPerActorDL","actor: " + x._1.id, x._2))
@@ -111,20 +121,31 @@ object main {
     val countEventPerActorTypeAndRepoDL = countEventPerActorTypeAndRepo
       .map(x=> new CountDL("countEventPerActorTypeAndRepo","actor: " + x._1._1.id + " eventType: " + x._1._2 + " repo: " + x._1._3.id ,x._2))
 
+    println("persisto count")
+
+    connector.saveOnDB(reposCountDL.toDF(), "json_count")
+    connector.saveOnDB(commitCountDL.toDF(), "json_count")
+    connector.saveOnDB(countCommitPerActorDL.toDF(), "json_count")
+    connector.saveOnDB(countCommitPerActorAndTypeDL.toDF(), "json_count")
+    connector.saveOnDB(countEventPerActorDL.toDF(), "json_count")
+    connector.saveOnDB(countEventPerTypeAndActorDL.toDF(), "json_count")
+    connector.saveOnDB(countEventPerActorTypeAndRepoDL.toDF(), "json_count")
+
+    println("eseguo metodi di max/min")
 
     //metodi max min
     val maxEventPerActor = maxMinRDD.getMaxEventPerActor(countEventPerTypeAndActor)
-    val maxEventPerActorDL = new MaxMinDL(
+    val maxEventPerActorDL = spark.sparkContext.parallelize(Seq(new MaxMinDL(
       "maxEventPerActor",
       ("actor: " + maxEventPerActor._1._1.id + " type: " + maxEventPerActor._1._2),
       maxEventPerActor._2,
-      "MAX")
+      "MAX")))
     val minEventPerActor = maxMinRDD.getMinEventPerActor(countEventPerTypeAndActor)
-    val minEventPerActorDL = new MaxMinDL(
+    val minEventPerActorDL = spark.sparkContext.parallelize(Seq(new MaxMinDL(
       "minEventPerActor",
       ("actor: " + maxEventPerActor._1._1.id + " type: " + maxEventPerActor._1._2),
       maxEventPerActor._2,
-      "MIN")
+      "MIN")))
     val maxEventPerHourAndActor = maxMinRDD.getMaxEventPerHourAndActor(rddWithHour)
       .map(x=>new MaxMinDL(
         "maxEventPerHourAndActor",
@@ -141,6 +162,16 @@ object main {
     val maxCommitPerHourAndRepoAndActor = maxMinRDD.getMaxCommitPerHourAndRepoAndActor(rddWithHour)
     val minCommitPerHourAndRepoAndActor = maxMinRDD.getMinCommitPerHourAndRepoAndActor(rddWithHour)
 
+    println("persito conteggi di max e min")
+
+    connector.saveOnDB(maxEventPerActorDL.toDF(), "json_max_min")
+    connector.saveOnDB(minEventPerActorDL.toDF(), "json_max_min")
+    connector.saveOnDB(maxEventPerHourAndActor.toDF(), "json_max_min")
+    connector.saveOnDB(minEventPerHourAndActor.toDF(), "json_max_min")
+    connector.saveOnDB(maxEventPerHourAndActor.toDF(), "json_max_min")
+    connector.saveOnDB(minEventPerHourAndActor.toDF(), "json_max_min")
+
+    println("Termino programma")
 
 
 
